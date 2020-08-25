@@ -9,20 +9,32 @@ document.addEventListener('DOMContentLoaded', async function(){
 
   formSearch.addEventListener('click', function(e){
     e.preventDefault()
-    function queryArea(){
+    let a = 1
+    const more = document.querySelector('.pagination-next')
+    function queryArea(p){
       const description = form.description.value
       const location = form.location.value
       const isFullTime = form.full_time.checked
-      let currentLocation = window.location.href
 
-      let query =`${isFullTime ? 'full_time=on' : ''}${description ? '&description=' + description : ''}${location ? '&location=' + location : ''}`
+      let query =`${isFullTime ? 'full_time=on' : ''}${description ? '&description=' + description : ''}${location ? '&location=' + location : ''}${p ? '&page=' + p : ''}`
       return 'https://still-spire-37210.herokuapp.com/positions.json?' + query
     }
-    console.log(queryArea())
     jobContainer.innerHTML = ''
     fetch(queryArea())
       .then(res => res.json())
       .then(jobRes => {
+        if (jobRes.length = 50){
+          a = a + 1
+          more.removeAttribute('disabled')
+          more.addEventListener('click', function(){
+            console.log(queryArea(a))
+            fetch(queryArea(a))
+              .then(res => res.json())
+              .then(jobRes => {
+                console.log(jobRes)
+              })
+          })
+        }
         jobRes.forEach(job => {
           const jobTemplate = document.querySelector('#job-template')
           let newJob = document.createElement('tr')
