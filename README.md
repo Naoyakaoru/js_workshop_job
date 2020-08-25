@@ -28,7 +28,7 @@ $ npx http-server .
 
 可以啟用 `http://localhost:8080`
 
-
+https://still-spire-37210.herokuapp.com/positions.json
 ## 任務清單
 
 ### Task 1
