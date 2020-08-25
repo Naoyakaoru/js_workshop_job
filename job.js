@@ -20,15 +20,15 @@ document.addEventListener('DOMContentLoaded', async function(){
   })
   function queryArea(p){
     if(p==''){
-      const description = form.description.value
-      const location = form.location.value
+      const description = form.description.value.split(' ').join('+')
+      const location = form.location.value.split(' ').join('+')
       const isFullTime = form.full_time.checked
 
       let query =`${isFullTime ? 'full_time=on' : ''}${description ? '&description=' + description : ''}${location ? '&location=' + location : ''}${p ? '&page=' + p : ''}`
-      return 'https://still-spire-37210.herokuapp.com/positions.json?' + query
+      return 'https://github-job-server.herokuapp.com/positions.json?' + query
     }else{
       let query = `${p ? '?page=' + p : ''}`
-      return 'https://still-spire-37210.herokuapp.com/positions.json' + query
+      return 'https://github-job-server.herokuapp.com/positions.json' + query
     }
   }
     function giveMeJobs(x){ fetch(queryArea(x))
